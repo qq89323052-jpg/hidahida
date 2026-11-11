@@ -166,9 +166,9 @@
     }
     .code {
       margin-top: 8px;
-      font-family: "Cormorant Garamond", serif;
+      font-family: "Noto Serif SC", "Cormorant Garamond", serif;
       font-weight: 500;
-      font-size: 26px;
+      font-size: 22px;
       letter-spacing: 0.18em;
       text-indent: 0.18em;
       color: var(--ink);
@@ -204,36 +204,7 @@
 <body>
   <main class="card" id="app"></main>
   <script>
-    const ALPHA = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
-    const SECRET = "HIDAHIDA-EURMINK-2026";
     const PRODUCT = "欧貂绒外套";
-
-    function checksum(data) {
-      let h = 5381;
-      const s = data + SECRET;
-      for (let i = 0; i < s.length; i++) {
-        h = Math.imul((h << 5) + h, 1) ^ s.charCodeAt(i);
-        h >>>= 0;
-      }
-      return ALPHA[h % 32] + ALPHA[Math.floor(h / 32) % 32];
-    }
-
-    function parseCode(raw) {
-      if (!raw) return null;
-      const t = String(raw).toUpperCase().replace(/\s+/g, "").replace(/^#/, "");
-      const m = t.match(/^HD-?([2-9A-HJ-NP-Z]{4})-?([2-9A-HJ-NP-Z]{4})$/);
-      if (!m) return { ok: false, display: t || "" };
-      const body = m[1] + m[2];
-      const ok = checksum(body.slice(0, 6)) === body.slice(6);
-      return { ok, display: "HD-" + m[1] + "-" + m[2] };
-    }
-
-    function readCode() {
-      const q = new URLSearchParams(location.search);
-      if (q.get("c")) return q.get("c");
-      if (location.hash) return decodeURIComponent(location.hash.replace(/^#\/?/, ""));
-      return "";
-    }
 
     function nowText() {
       const d = new Date();
@@ -249,64 +220,28 @@
         <path d="M22.5 12 V30 M22.5 21 H31 M31 12 V30" fill="none" stroke="#1c1814" stroke-width="1.55"/>
       </svg>`;
 
-    const found = parseCode(readCode());
-    const app = document.getElementById("app");
-
-    if (!found || !found.display) {
-      app.classList.add("empty");
-      app.innerHTML = `
-        ${monogram}
-        <div class="brand">HIDAHIDA</div>
-        <div class="rule"></div>
-        <div class="en">Authenticity</div>
-        <h1 class="title">请扫描吊牌二维码</h1>
-        <p class="note">请使用手机扫描服装吊牌上的二维码<br>以完成正品验证</p>
-        <div class="foot">HIDAHIDA</div>`;
-    } else if (found.ok) {
-      app.innerHTML = `
-        ${monogram}
-        <div class="brand">HIDAHIDA</div>
-        <div class="rule"></div>
-        <div class="en">Authenticity Confirmed</div>
-        <div class="seal" aria-hidden="true">
-          <svg viewBox="0 0 86 86">
-            <circle class="ring" cx="43" cy="43" r="40"/>
-            <circle class="ring" cx="43" cy="43" r="36" stroke-width="0.5"/>
-            <path class="check" d="M29 44.5 L39 55 L58 33"/>
-          </svg>
-        </div>
-        <h1 class="title">正品已验证</h1>
-        <p class="product">${PRODUCT}</p>
-        <p class="season">2026  WINTER</p>
-        <div class="panel">
-          <div class="label">ANTI-COUNTERFEIT CODE</div>
-          <div class="code">${found.display}</div>
-          <div class="meta">第 1 次查询<span>·</span>${nowText()}</div>
-        </div>
-        <p class="note">本品已通过 HIDAHIDA 正品确认<br>感谢您选择 HIDAHIDA</p>
-        <div class="foot">HIDAHIDA</div>`;
-    } else {
-      app.innerHTML = `
-        ${monogram}
-        <div class="brand">HIDAHIDA</div>
-        <div class="rule"></div>
-        <div class="en">Authenticity</div>
-        <div class="seal bad" aria-hidden="true">
-          <svg viewBox="0 0 86 86">
-            <circle class="ring" cx="43" cy="43" r="40"/>
-            <path class="cross" d="M32 32 L54 54" fill="none"/>
-            <path class="cross" d="M54 32 L32 54" fill="none"/>
-          </svg>
-        </div>
-        <h1 class="title bad">未能识别此防伪码</h1>
-        <p class="product">请核对吊牌后重新扫描</p>
-        <div class="panel">
-          <div class="label">CODE</div>
-          <div class="code" style="font-size:20px;letter-spacing:0.12em;text-indent:0.12em">${found.display}</div>
-        </div>
-        <p class="note">如多次无法识别，请联系店铺客服</p>
-        <div class="foot">HIDAHIDA</div>`;
-    }
+    document.getElementById("app").innerHTML = `
+      ${monogram}
+      <div class="brand">HIDAHIDA</div>
+      <div class="rule"></div>
+      <div class="en">Authenticity Confirmed</div>
+      <div class="seal" aria-hidden="true">
+        <svg viewBox="0 0 86 86">
+          <circle class="ring" cx="43" cy="43" r="40"/>
+          <circle class="ring" cx="43" cy="43" r="36" stroke-width="0.5"/>
+          <path class="check" d="M29 44.5 L39 55 L58 33"/>
+        </svg>
+      </div>
+      <h1 class="title">正品已验证</h1>
+      <p class="product">${PRODUCT}</p>
+      <p class="season">2026  WINTER</p>
+      <div class="panel">
+        <div class="label">OFFICIAL QUERY</div>
+        <div class="code">官方正品查询</div>
+        <div class="meta">${nowText()}</div>
+      </div>
+      <p class="note">本品已通过 HIDAHIDA 正品确认<br>感谢您选择 HIDAHIDA</p>
+      <div class="foot">HIDAHIDA</div>`;
   </script>
 </body>
 </html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#f3eee4">
+  <title>HIDAHIDA 正品验证</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ivory: #f3eee4;
+      --ivory-deep: #ebe4d6;
+      --ink: #1c1814;
+      --ink-soft: #4a433a;
+      --mute: #8a8174;
+      --gold: #a8884a;
+      --gold-soft: #c4a86a;
+      --line: rgba(168, 136, 74, 0.45);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      min-height: 100%;
+      background: var(--ivory);
+      color: var(--ink);
+      font-family: "Outfit", "Noto Serif SC", serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: calc(32px + env(safe-area-inset-top)) 24px calc(28px + env(safe-area-inset-bottom));
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(196, 168, 106, 0.12), transparent 55%),
+        var(--ivory);
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+    .card {
+      position: relative;
+      width: 100%;
+      max-width: 390px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: rise 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+    }
+    @keyframes rise {
+      to { opacity: 1; transform: none; }
+    }
+    .monogram {
+      width: 42px;
+      height: 42px;
+      margin: 0 auto 22px;
+    }
+    .brand {
+      font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.42em;
+      text-indent: 0.42em;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .rule {
+      width: 0;
+      height: 1px;
+      margin: 18px auto 14px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      animation: draw 1s ease 0.7s forwards;
+    }
+    @keyframes draw { to { width: 88px; } }
+    .en {
+      font-family: "Outfit", sans-serif;
+      font-weight: 400;
+      font-size: 9px;
+      letter-spacing: 0.38em;
+      text-indent: 0.38em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .seal {
+      margin: 42px auto 22px;
+      width: 86px;
+      height: 86px;
+    }
+    .seal svg { width: 100%; height: 100%; overflow: visible; }
+    .seal .ring {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 1.1;
+      stroke-dasharray: 260;
+      stroke-dashoffset: 260;
+      animation: ring 1.2s ease 0.6s forwards;
+    }
+    @keyframes ring { to { stroke-dashoffset: 0; } }
+    .seal .check {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 40;
+      stroke-dashoffset: 40;
+      animation: ring 0.6s ease 1.3s forwards;
+    }
+    .seal.bad .check { display: none; }
+    .seal.bad .cross {
+      stroke: var(--mute);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-dasharray: 30;
+      stroke-dashoffset: 30;
+      animation: ring 0.5s ease 1.1s forwards;
+    }
+    .seal.bad .ring { stroke: var(--mute); }
+    .title {
+      font-family: "Noto Serif SC", serif;
+      font-weight: 500;
+      font-size: 26px;
+      letter-spacing: 0.22em;
+      text-indent: 0.22em;
+      line-height: 1.3;
+    }
+    .title.bad { color: var(--ink-soft); letter-spacing: 0.14em; text-indent: 0.14em; font-size: 22px; }
+    .product {
+      margin-top: 10px;
+      font-family: "Noto Serif SC", serif;
+      font-size: 15px;
+      letter-spacing: 0.28em;
+      text-indent: 0.28em;
+      color: var(--ink-soft);
+    }
+    .season {
+      margin-top: 6px;
+      font-family: "Outfit", sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-indent: 0.28em;
+      color: var(--mute);
+    }
+    .panel {
+      margin: 36px 8px 0;
+      padding: 22px 16px 20px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .label {
+      font-size: 9px;
+      letter-spacing: 0.32em;
+      text-indent: 0.32em;
+      color: var(--mute);
+      font-family: "Outfit", sans-serif;
+    }
+    .code {
+      margin-top: 8px;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 500;
+      font-size: 26px;
+      letter-spacing: 0.18em;
+      text-indent: 0.18em;
+      color: var(--ink);
+    }
+    .meta {
+      margin-top: 14px;
+      font-family: "Noto Serif SC", "Outfit", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+    }
+    .meta span { color: var(--mute); margin: 0 8px; }
+    .note {
+      margin-top: 36px;
+      font-family: "Noto Serif SC", serif;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--mute);
+      line-height: 1.9;
+    }
+    .foot {
+      margin-top: 48px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 13px;
+      letter-spacing: 0.36em;
+      text-indent: 0.36em;
+      color: var(--gold);
+    }
+    .empty .seal, .empty .panel { display: none; }
+    .empty .title { margin-top: 48px; }
+  </style>
+</head>
+<body>
+  <main class="card" id="app"></main>
+  <script>
+    const ALPHA = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+    const SECRET = "HIDAHIDA-EURMINK-2026";
+    const PRODUCT = "欧貂绒外套";
+
+    function checksum(data) {
+      let h = 5381;
+      const s = data + SECRET;
+      for (let i = 0; i < s.length; i++) {
+        h = Math.imul((h << 5) + h, 1) ^ s.charCodeAt(i);
+        h >>>= 0;
+      }
+      return ALPHA[h % 32] + ALPHA[Math.floor(h / 32) % 32];
+    }
+
+    function parseCode(raw) {
+      if (!raw) return null;
+      const t = String(raw).toUpperCase().replace(/\s+/g, "").replace(/^#/, "");
+      const m = t.match(/^HD-?([2-9A-HJ-NP-Z]{4})-?([2-9A-HJ-NP-Z]{4})$/);
+      if (!m) return { ok: false, display: t || "" };
+      const body = m[1] + m[2];
+      const ok = checksum(body.slice(0, 6)) === body.slice(6);
+      return { ok, display: "HD-" + m[1] + "-" + m[2] };
+    }
+
+    function readCode() {
+      const q = new URLSearchParams(location.search);
+      if (q.get("c")) return q.get("c");
+      if (location.hash) return decodeURIComponent(location.hash.replace(/^#\/?/, ""));
+      return "";
+    }
+
+    function nowText() {
+      const d = new Date();
+      const p = (n) => String(n).padStart(2, "0");
+      return d.getFullYear() + "." + p(d.getMonth() + 1) + "." + p(d.getDate())
+        + "  " + p(d.getHours()) + ":" + p(d.getMinutes());
+    }
+
+    const monogram = `
+      <svg class="monogram" viewBox="0 0 42 42" aria-hidden="true">
+        <rect x="1" y="1" width="40" height="40" fill="none" stroke="#a8884a" stroke-width="0.8"/>
+        <path d="M11 12 V30 M11 21 H19.5 M19.5 12 V30" fill="none" stroke="#1c1814" stroke-width="1.55"/>
+        <path d="M22.5 12 V30 M22.5 21 H31 M31 12 V30" fill="none" stroke="#1c1814" stroke-width="1.55"/>
+      </svg>`;
+
+    const found = parseCode(readCode());
+    const app = document.getElementById("app");
+
+    if (!found || !found.display) {
+      app.classList.add("empty");
+      app.innerHTML = `
+        ${monogram}
+        <div class="brand">HIDAHIDA</div>
+        <div class="rule"></div>
+        <div class="en">Authenticity</div>
+        <h1 class="title">请扫描吊牌二维码</h1>
+        <p class="note">请使用手机扫描服装吊牌上的二维码<br>以完成正品验证</p>
+        <div class="foot">HIDAHIDA</div>`;
+    } else if (found.ok) {
+      app.innerHTML = `
+        ${monogram}
+        <div class="brand">HIDAHIDA</div>
+        <div class="rule"></div>
+        <div class="en">Authenticity Confirmed</div>
+        <div class="seal" aria-hidden="true">
+          <svg viewBox="0 0 86 86">
+            <circle class="ring" cx="43" cy="43" r="40"/>
+            <circle class="ring" cx="43" cy="43" r="36" stroke-width="0.5"/>
+            <path class="check" d="M29 44.5 L39 55 L58 33"/>
+          </svg>
+        </div>
+        <h1 class="title">正品已验证</h1>
+        <p class="product">${PRODUCT}</p>
+        <p class="season">2026  WINTER</p>
+        <div class="panel">
+          <div class="label">ANTI-COUNTERFEIT CODE</div>
+          <div class="code">${found.display}</div>
+          <div class="meta">第 1 次查询<span>·</span>${nowText()}</div>
+        </div>
+        <p class="note">本品已通过 HIDAHIDA 正品确认<br>感谢您选择 HIDAHIDA</p>
+        <div class="foot">HIDAHIDA</div>`;
+    } else {
+      app.innerHTML = `
+        ${monogram}
+        <div class="brand">HIDAHIDA</div>
+        <div class="rule"></div>
+        <div class="en">Authenticity</div>
+        <div class="seal bad" aria-hidden="true">
+          <svg viewBox="0 0 86 86">
+            <circle class="ring" cx="43" cy="43" r="40"/>
+            <path class="cross" d="M32 32 L54 54" fill="none"/>
+            <path class="cross" d="M54 32 L32 54" fill="none"/>
+          </svg>
+        </div>
+        <h1 class="title bad">未能识别此防伪码</h1>
+        <p class="product">请核对吊牌后重新扫描</p>
+        <div class="panel">
+          <div class="label">CODE</div>
+          <div class="code" style="font-size:20px;letter-spacing:0.12em;text-indent:0.12em">${found.display}</div>
+        </div>
+        <p class="note">如多次无法识别，请联系店铺客服</p>
+        <div class="foot">HIDAHIDA</div>`;
+    }
+  </script>
+</body>
+</html>
